@@ -14,9 +14,10 @@ class Vehicle:
 
     @weight.setter
     def weight(self, value):
-        if type(value) not in (int, float):
+        if type(value) in (int, float):
+            self._weight = value
+        else:
             raise TypeError("Weight must be int or float number.")
-        self._weight = value
 
     @property
     def fuel(self):
@@ -24,9 +25,10 @@ class Vehicle:
 
     @fuel.setter
     def fuel(self, value):
-        if type(value) not in (int, float):
+        if type(value) in (int, float):
+            self._fuel = value
+        else:
             raise TypeError("Fuel must be int or float number.")
-        self._fuel = value
 
     @property
     def fuel_consumption(self):
@@ -34,9 +36,10 @@ class Vehicle:
 
     @fuel_consumption.setter
     def fuel_consumption(self, value):
-        if type(value) not in (int, float):
+        if type(value) in (int, float):
+            self._fuel_consumption = value
+        else:
             raise TypeError("Fuel consumption must be int or float number.")
-        self._fuel_consumption = value
 
     def start(self):
         if not self.started:
