@@ -13,9 +13,10 @@ class Car(Vehicle):
 
     @engine.setter
     def engine(self, value):
-        if not issubclass(type(value), Engine):
+        if issubclass(type(value), Engine):
+            self._engine = value
+        else:
             raise TypeError("Engine must be Engine Class.")
-        self._engine = value
 
     def set_engine(self):
         new_engine = Engine(volume=1.0, pistons=2)

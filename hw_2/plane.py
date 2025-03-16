@@ -14,9 +14,10 @@ class Plane(Vehicle):
 
     @cargo.setter
     def cargo(self, value):
-        if type(value) not in (int, float):
+        if type(value) in (int, float):
+            self._cargo = value
+        else:
             raise TypeError("Cargo must be int or float number.")
-        self._cargo = value
 
     @property
     def max_cargo(self):
@@ -24,9 +25,10 @@ class Plane(Vehicle):
 
     @max_cargo.setter
     def max_cargo(self, value):
-        if type(value) not in (int, float):
+        if type(value) in (int, float):
+            self._max_cargo = value
+        else:
             raise TypeError("Cargo must be int or float number.")
-        self._max_cargo = value
 
     def load_cargo(self, value):
         print(f"В транспорт загружено {self.cargo} единиц груза.")
