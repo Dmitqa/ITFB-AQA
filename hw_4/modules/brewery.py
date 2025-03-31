@@ -12,8 +12,8 @@ class Brewery(BaseModel):
     state_province: str
     postal_code: str
     country: str
-    longitude: str
-    latitude: str
+    longitude: float
+    latitude: float
     phone: str
     website_url: str
     state: str
