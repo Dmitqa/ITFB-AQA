@@ -5,15 +5,20 @@ from modules.dog import Dog
 
 
 def test_dog_status_code(get_dog_url):
-    assert get_dog_url.status_code == 200
+    code = get_dog_url.status_code
+    assert code == 200
 
 
-def test_dog_schema(get_dog_url):
+def test_dog_model(get_dog_url):
     post_model = Dog.model_validate(get_dog_url.json())
+    code = get_dog_url.status_code
+    assert code == 200
     assert post_model
 
 
 def test_dog_status_field(get_dog_url):
+    code = get_dog_url.status_code
+    assert code == 200
     assert get_dog_url.json()["status"] == "success"
 
 
@@ -25,6 +30,7 @@ def test_dog_status_field(get_dog_url):
     "shihtzu"])
 def test_dog_breeds_in_message(breed):
     response = requests.get(url=DOG_URL + "breeds/list/all")
+    assert response.status_code == 200
     assert breed in response.json().get("message")
 
 
@@ -36,4 +42,5 @@ def test_dog_breeds_in_message(breed):
     "wheaten"])
 def test_dog_terrier(terrier):
     response = requests.get(url=DOG_URL + "breeds/list/all")
+    assert response.status_code == 200
     assert terrier in response.json().get("message").get("terrier")

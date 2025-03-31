@@ -11,16 +11,17 @@ def test_holder_status_code():
     assert response.status_code == 200
 
 
-def test_holder_schema():
+def test_holder_model():
     response = requests.get(url=HOLDER_URL + "posts/1")
     post_model = Holder.model_validate(response.json())
+    assert response.status_code == 200
     assert post_model
 
 
 def test_holder_title():
     response = requests.get(url=HOLDER_URL + "posts/1")
     post_model = Holder.model_validate(response.json())
-
+    assert response.status_code == 200
     assert post_model.title == "sunt aut facere repellat provident occaecati excepturi optio reprehenderit"
 
 
@@ -32,6 +33,7 @@ def test_holder_title():
     (5, "Hayden@althea.biz")])
 def test_holder_id_with_email(id, email):
     response = requests.get(url=HOLDER_URL + "posts/1/comments")
+    assert response.status_code == 200
     assert response.json()[id - 1].get("id") == id and response.json()[id - 1].get("email") == email
 
 
@@ -44,4 +46,5 @@ def test_holder_id_with_email(id, email):
              "\nharum architecto fugit inventore cupiditate\nvoluptates magni quo et")])
 def test_holder_id5_comment(field, value):
     response = requests.get(url=HOLDER_URL + "posts/1/comments")
+    assert response.status_code == 200
     assert response.json()[4].get(field) == value
