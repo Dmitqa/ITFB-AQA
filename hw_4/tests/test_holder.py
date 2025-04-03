@@ -13,9 +13,8 @@ def test_holder_status_code():
 
 def test_holder_model():
     response = requests.get(url=HOLDER_URL + "posts/1")
-    post_model = Holder.model_validate(response.json())
     assert response.status_code == 200
-    assert post_model
+    Holder.model_validate(response.json())
 
 
 def test_holder_title():

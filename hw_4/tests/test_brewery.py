@@ -11,9 +11,8 @@ def test_brewery_status_code():
 
 def test_brewery_model():
     response = requests.get(url=BREW_URL + "v1/breweries/936c3d7e-5d54-4459-b72c-117cdda059b4")
-    post_model = Brewery.model_validate(response.json())
     assert response.status_code == 200
-    assert post_model
+    Brewery.model_validate(response.json())
 
 
 def test_brewery_encoding():
