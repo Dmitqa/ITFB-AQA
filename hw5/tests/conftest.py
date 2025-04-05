@@ -1,7 +1,6 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromService
-from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.service import Service as FoxService
 from selenium.webdriver.edge.service import Service as EdgeService
 
@@ -19,17 +18,11 @@ def driver(request):
     url = request.config.getoption("--url")
 
     if browser == "Chrome":
-        options = webdriver.ChromeOptions()
-        options.add_argument('headless')
-        driver = webdriver.Chrome(service=ChromService(), options=options)
+        driver = webdriver.Chrome(service=ChromService())
     elif browser == "Firefox":
-        options = webdriver.FirefoxOptions()
-        options.add_argument('headless')
-        driver = webdriver.Firefox(service=FoxService(), options=options)
+        driver = webdriver.Firefox(service=FoxService())
     else:
-        options = webdriver.EdgeOptions()
-        options.add_argument('headless')
-        driver = webdriver.Edge(service=EdgeService(), options=options)
+        driver = webdriver.Edge(service=EdgeService())
 
     driver.maximize_window()
     driver.get(url)
@@ -41,26 +34,17 @@ def driver(request):
 
 @pytest.fixture(scope="module")
 def click_laptop(driver):
-    element = driver.find_element(By.XPATH, "//*[@id='narbar-menu']/ul/li[2]/a")
-    element.click()
-    laptop_element = driver.find_element(By.XPATH, "//*[@id='narbar-menu']/ul/li[2]/div/a")
-    return laptop_element.click()
-
-
-@pytest.fixture(scope="module")
-def click_hp_lp_3065(driver):
-    driver.find_element(By.XPATH, "//*[@id='narbar-menu']/ul/li[2]/a").click()
-    driver.find_element(By.XPATH, "//*[@id='narbar-menu']/ul/li[2]/div/a").click()
-    return driver.find_element(By.XPATH, "//*[@id='product-list']/div[1]/div/div[1]/a/img").click()
+    driver.get("http://localhost/en-gb/catalog/laptop-notebook")
+    return driver
 
 
 @pytest.fixture(scope="module")
 def page_login(driver):
-    driver.find_element(By.XPATH, "//span[contains(text(), 'My Account')]").click()
-    return driver.find_element(By.XPATH, "//*[@id='top']//a[contains(text(), 'Login')]").click()
+    driver.get("http://localhost/en-gb?route=account/login")
+    return driver
 
 
 @pytest.fixture(scope="module")
 def page_register(driver):
-    driver.find_element(By.XPATH, "//span[contains(text(), 'My Account')]").click()
-    return driver.find_element(By.XPATH, "//*[@id='top']//a[contains(text(), 'Register')]").click()
+    driver.get("http://localhost/en-gb?route=account/register")
+    return driver
