@@ -38,6 +38,13 @@ def click_laptop(driver):
     return driver
 
 
+@pytest.fixture()
+def click_laptop_card(driver):
+    driver.get("http://localhost/en-gb/catalog/laptop-notebook")
+    yield driver
+    driver.back()
+
+
 @pytest.fixture(scope="module")
 def page_login(driver):
     driver.get("http://localhost/en-gb?route=account/login")
